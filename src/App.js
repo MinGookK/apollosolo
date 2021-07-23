@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Route exact path="/" component={Home} />
-      <Route path="/detail" component={Detail} />
+      <Route path="/:id" component={Detail} />
     </div>
   );
 }
