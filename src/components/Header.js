@@ -8,5 +8,5 @@ export const Header = styled.div`
 
   width: 100%;
   height: 40%;
-  background-color: #a0a0a0;
+  background-color: skyblue;
 `;

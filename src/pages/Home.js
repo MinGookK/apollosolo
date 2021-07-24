@@ -4,11 +4,13 @@ import { Container } from '../components/Container';
 import { Header } from '../components/Header';
 import { H1, H2 } from '../components/FontStyle';
 import { Movie } from '../components/Movie';
+import { FlexBoxRow } from '../components/FlexBox';
 
 const GET_MOVIES_ID = gql`
   query {
     movies {
       id
+      medium_cover_image
     }
   }
 `;
@@ -24,14 +26,15 @@ export default function Home() {
       </Header>
       {loading && <p>loading...</p>}
       {error && <p>error! :(</p>}
-      {!loading && data && data.movies.map((movie) => <Movie key={movie.id} id={movie.id} />)}
+      {!loading && data && (
+        <FlexBoxRow>
+          {data.movies.map((movie) => (
+            <>
+              <Movie key={movie.id} poster={movie.medium_cover_image} id={movie.id} />
+            </>
+          ))}
+        </FlexBoxRow>
+      )}
     </Container>
   );
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error :(</p>;
-
-  // if (!loading && data) {
-  //   console.log(data.movies);
-  //   return <Container> 홈을 감싼 컨테이너</Container>;
-  // }
 }

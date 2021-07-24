@@ -1,14 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
+import { Container } from '../components/Container';
+import { H1 } from '../components/FontStyle';
 
-const GET_MOVIE_DETAIL = gql`
-  query getMovieDetail($id: Int!) {
+const GET_MOVIE = gql`
+  query getMovie($id: Int!) {
     movie(id: $id) {
       id
       title
-      rating
-      language
+      medium_cover_image
       description_intro
     }
   }
@@ -16,20 +17,33 @@ const GET_MOVIE_DETAIL = gql`
 
 export default function Detail() {
   const { id } = useParams();
-  console.log(id);
 
-  const { loading, error, data } = useQuery(GET_MOVIE_DETAIL, {
-    variables: { id },
+  const { loading, error, data } = useQuery(GET_MOVIE, {
+    variables: { id: +id },
   });
-
-  if (loading) {
-    return <p>loading...</p>;
-  }
-  if (error) {
-    return <p>error</p>;
-  }
-  if (!loading && data) {
-    console.log(data);
-    return <p>success!</p>;
-  }
+  console.log(data);
+  return (
+    <Container>
+      {loading && <p>loading...</p>}
+      {error && <p>error :(</p>}
+      {!loading && data && (
+        <>
+          <H1>{data.movie.title}</H1>
+          <img alt="poster" src={data.movie.medium_cover_image} />
+          <p>{data.movie.description_intro}</p>
+        </>
+      )}
+    </Container>
+  );
+  // if (loading) {
+  //   return <p>loading...</p>;
+  // }
+  // if (error) {
+  //   console.log(error);
+  //   return <p>error</p>;
+  // }
+  // if (!loading && data) {
+  //   console.log(data);
+  //   return <p>success!</p>;
+  // }
 }
