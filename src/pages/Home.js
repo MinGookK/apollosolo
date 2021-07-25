@@ -11,6 +11,7 @@ const GET_MOVIES_ID = gql`
     movies {
       id
       medium_cover_image
+      isLiked @client
     }
   }
 `;
@@ -30,7 +31,7 @@ export default function Home() {
         <FlexBoxRow>
           {data.movies.map((movie) => (
             <>
-              <Movie key={movie.id} poster={movie.medium_cover_image} id={movie.id} />
+              <Movie key={movie.id} isLiked={movie.isLiked} poster={movie.medium_cover_image} id={movie.id} />
             </>
           ))}
         </FlexBoxRow>

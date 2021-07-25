@@ -6,7 +6,7 @@ import { H1 } from '../components/FontStyle';
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
-    movie(id: $id) {
+    movie(id: $id) { 
       id
       title
       medium_cover_image
@@ -19,9 +19,11 @@ export default function Detail() {
   const { id } = useParams();
 
   const { loading, error, data } = useQuery(GET_MOVIE, {
-    variables: { id: +id },
+    variables: { id: +id }, 
   });
-  console.log(data);
+
+  // console.log(data);
+
   return (
     <Container>
       {loading && <p>loading...</p>}
@@ -35,15 +37,4 @@ export default function Detail() {
       )}
     </Container>
   );
-  // if (loading) {
-  //   return <p>loading...</p>;
-  // }
-  // if (error) {
-  //   console.log(error);
-  //   return <p>error</p>;
-  // }
-  // if (!loading && data) {
-  //   console.log(data);
-  //   return <p>success!</p>;
-  // }
 }

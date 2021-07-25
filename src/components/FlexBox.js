@@ -14,4 +14,5 @@ export const FlexBoxColumn = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
+  border-radius: 10px;
 `;

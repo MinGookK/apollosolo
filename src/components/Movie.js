@@ -1,14 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FlexBoxColumn } from './FlexBox';
+import { gql, useMutation } from '@apollo/client';
 
-export const Movie = ({ id, poster }) => {
+const LIKE_MOVIE = gql`
+  mutation likeMovie($id: Int!) {
+    likeMovie(id: $id) @client
+  }
+`;
+
+export const Movie = ({ id, poster, isLiked }) => {
+  const [toggleLikeMovie] = useMutation(LIKE_MOVIE, {
+    variables: { id: +id },
+  });
+
   return (
     <FlexBoxColumn>
       <Link to={`/${id}`}>
         <img alt="poster" src={poster} />
       </Link>
-      <button>좋아요</button>
+      <button onClick={isLiked ? null : toggleLikeMovie}>{isLiked ? 'unlike' : 'like'}</button>
     </FlexBoxColumn>
   );
 };
